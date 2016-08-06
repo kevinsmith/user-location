@@ -1,6 +1,10 @@
 import webpack from "webpack";
+import _ from "lodash";
 import pkg from "./package.json";
-var banner = `${pkg.name} v${pkg.version}
+
+_.mixin({ 'pascalCase': _.flow(_.camelCase, _.upperFirst) });
+
+var banner = `${_.pascalCase(pkg.name)} v${pkg.version}
 ${pkg.description}
 
 ${pkg.homepage}
@@ -24,9 +28,9 @@ limitations under the License.
 
 module.exports = {
   output: {
-    library: pkg.name,
+    library: _.pascalCase(pkg.name),
     libraryTarget: "umd",
-    filename: `${pkg.name}.js`
+    filename: `${_.pascalCase(pkg.name)}.js`
   },
   devtool: "#inline-source-map",
   module: {

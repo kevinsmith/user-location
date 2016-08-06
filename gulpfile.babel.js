@@ -21,7 +21,9 @@ gulp.task('default', ['checks'], () => {
            negate_iife: false
         }
     }))
-    .pipe(rename('user-location.min.js'))
+    .pipe(rename(function(path) {
+      path.basename += '.min';
+    }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./dist'));
 });
