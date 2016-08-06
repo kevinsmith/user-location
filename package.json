@@ -24,6 +24,7 @@
     "babel-register": "^6.11.6",
     "gulp": "^3.9.1",
     "gulp-jscs": "^4.0.0",
+    "gulp-jscs-stylish": "^1.4.0",
     "gulp-jshint": "^2.0.1",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
