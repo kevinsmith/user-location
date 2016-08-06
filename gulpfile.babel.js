@@ -5,10 +5,7 @@ import webpack from 'webpack-stream';
 import sourcemaps from 'gulp-sourcemaps';
 import rename from 'gulp-rename';
 import uglify from 'gulp-uglify';
-import jscs from 'gulp-jscs';
-import jshint from 'gulp-jshint';
-import stylish from 'gulp-jscs-stylish';
-import notify from 'gulp-notify';
+import eslint from 'gulp-eslint';
 
 gulp.task('default', ['checks'], () => {
   return gulp.src('src/index.js')
@@ -33,8 +30,10 @@ gulp.task('default', ['checks'], () => {
  */
 gulp.task('checks', () => {
   gulp.src('src/**/*.js')
-    .pipe(jshint('.jshintrc'))
-    .pipe(jscs())
-    .pipe(stylish.combineWithHintResults())
-    .pipe(jshint.reporter('jshint-stylish'));
+    .pipe(eslint({
+      fix: true
+    }))
+    .pipe(eslint.format())
+    .pipe(gulp.dest('src'))
+    .pipe(eslint.failAfterError());
 });
