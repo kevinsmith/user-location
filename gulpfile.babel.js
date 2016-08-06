@@ -1,6 +1,7 @@
 'use strict';
 
 import gulp from 'gulp';
+import gulpIf from 'gulp-if';
 import webpack from 'webpack-stream';
 import sourcemaps from 'gulp-sourcemaps';
 import rename from 'gulp-rename';
@@ -34,6 +35,13 @@ gulp.task('checks', () => {
       fix: true
     }))
     .pipe(eslint.format())
-    .pipe(gulp.dest('src'))
+    .pipe(gulpIf(isFixed, gulp.dest('src')))
     .pipe(eslint.failAfterError());
 });
+
+/**
+ * Has ESLint fixed the file contents?
+ */
+function isFixed(file) {
+  return file.eslint != null && file.eslint.fixed;
+}
