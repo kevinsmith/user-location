@@ -1,0 +1,35 @@
+# Tools
+backups/*
+.idea
+.settings
+.bundle
+mixture.json
+prepros.json
+codekit-config.json
+browserstack.json
+BrowserStackLocal
+*.sublime-*
+node_modules
+.sass-cache
+Homestead.yaml
+
+# System
+Thumbs.db
+.DS_Store
+.tmp
+.cache
+*.diff
+*.tmproj
+*.err
+*.orig
+*.swp
+*.out
+*.gem
+*.log
+*.vi
+*.pid
+/vendor
+*.vagrant
+
+# Include directories with .gitkeep
+!.gitkeep
