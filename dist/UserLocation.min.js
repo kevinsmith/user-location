@@ -1,6 +1,6 @@
 /*!
  * UserLocation v0.0.1
- * Simple library to get a user's current location.
+ * Simple library to get a user's current location using the GeoIP service from GeoCarrot.
  * 
  * https://developers.geocarrot.com
  * 
