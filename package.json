@@ -1,0 +1,11 @@
+{
+  "name": "userlocation",
+  "version": "0.0.1",
+  "description": "Simple library to get a user's current location.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0"
+}
