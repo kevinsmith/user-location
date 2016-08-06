@@ -1,3 +1,4 @@
+/* eslint-disable */
 import webpack from "webpack";
 import _ from "lodash";
 import pkg from "./package.json";
