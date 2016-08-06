@@ -13,6 +13,10 @@
   },
   "homepage": "https://developers.geocarrot.com",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevinsmith/geocarrot-user-location.git"
+  },
   "devDependencies": {
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
