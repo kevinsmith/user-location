@@ -1,5 +1,5 @@
 {
-  "name": "userlocation",
+  "name": "user-location",
   "version": "0.0.1",
   "description": "Simple library to get a user's current location.",
   "main": "index.js",
