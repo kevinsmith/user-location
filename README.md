@@ -2,6 +2,14 @@
 
 Simple library to get a user's current location using the GeoIP service from GeoCarrot.
 
+### Browser Compatibility
+
+- Chrome 5.0+
+- Firefox 25+
+- Internet Explorer 9+
+- Opera 16+
+- Safari 5+
+
 ## Code Example
 
 ```
