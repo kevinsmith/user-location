@@ -5,8 +5,6 @@ export default class UserLocation {
     fallback = 'exact', // If IP-based geolocation fails
     specificity = 'general',
   }) {
-    let coordsLoaded = false;
-
     const coords = {
       latitude: null,
       longitude: null,
@@ -18,12 +16,9 @@ export default class UserLocation {
     }
 
     const promise = new Promise((resolve, reject) => {
-      if (coordsLoaded) {
-        resolve(coords);
-      } else if (specificity === 'exact') {
+      if (specificity === 'exact') {
         navigator.geolocation.getCurrentPosition(
           (pos) => {
-            coordsLoaded = true;
             coords.latitude = pos.coords.latitude;
             coords.longitude = pos.coords.longitude;
             coords.accuracy = pos.coords.accuracy;
@@ -38,7 +33,6 @@ export default class UserLocation {
           .then((response) => {
             if (response.ok) {
               response.json().then((json) => {
-                coordsLoaded = true;
                 coords.latitude = json.data.attributes.location.latitude;
                 coords.longitude = json.data.attributes.location.longitude;
                 resolve(coords);
