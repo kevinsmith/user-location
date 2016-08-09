@@ -34,7 +34,22 @@ export default class UserLocation {
           }
         );
       } else if (specificity === 'general') {
-        // Use GeoIP lookup to get general area
+        fetch(`https://geoip.maplasso.com/api/?key=${apiKey}`, {})
+          .then((response) => {
+            if (response.ok) {
+              response.json().then((json) => {
+                coordsLoaded = true;
+                coords.latitude = json.data.attributes.location.latitude;
+                coords.longitude = json.data.attributes.location.longitude;
+                resolve(coords);
+              });
+            } else {
+              reject(`${response.statusText})`);
+            }
+          },
+          (err) => {
+            reject(`${err.message}`);
+          });
       } else {
         throw new Error('Invalid configuration value for location specificity.');
       }
