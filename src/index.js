@@ -1,6 +1,6 @@
 export default class UserLocation {
   constructor({
-    apiKey,
+    apiKey = null,
     cacheTtl = 604800, // 7 days
     fallback = 'exact', // If IP-based geolocation fails
     specificity = 'general',
@@ -12,6 +12,10 @@ export default class UserLocation {
       longitude: null,
       accuracy: null,
     };
+
+    if (apiKey === null && (specificity === 'general' || fallback === 'general')) {
+      throw new Error('An API key must be included when using GeoCarrot\'s GeoIP lookup.');
+    }
 
     const promise = new Promise((resolve, reject) => {
       if (coordsLoaded) {
