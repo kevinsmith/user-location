@@ -5,27 +5,39 @@ export default class UserLocation {
     fallback = 'exact', // If IP-based geolocation fails
     specificity = 'general',
   }) {
-    let coords = {};
+    let coordsLoaded = false;
 
-    if (specificity === 'exact') {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          console.log(pos.coords);
-        },
-        (err) => {
-          throw new Error(`${err.message} (error code: ${err.code})`);
-        }
-      );
-    } else if (specificity === 'general') {
-      // Use GeoIP lookup to get general area
-    } else {
-      throw new Error('Invalid configuration value for location specificity.');
-    }
+    const coords = {
+      latitude: null,
+      longitude: null,
+      accuracy: null,
+    };
 
-    coords = 'something';
+    const promise = new Promise((resolve, reject) => {
+      if (coordsLoaded) {
+        resolve(coords);
+      } else if (specificity === 'exact') {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            coordsLoaded = true;
+            coords.latitude = pos.coords.latitude;
+            coords.longitude = pos.coords.longitude;
+            coords.accuracy = pos.coords.accuracy;
+            resolve(coords);
+          },
+          (err) => {
+            reject(`${err.message} (error code: ${err.code})`);
+          }
+        );
+      } else if (specificity === 'general') {
+        // Use GeoIP lookup to get general area
+      } else {
+        throw new Error('Invalid configuration value for location specificity.');
+      }
+    });
 
-    console.log(apiKey, cacheTtl, fallback, coords);
+    console.log(apiKey, cacheTtl, fallback);
 
-    return coords;
+    return promise;
   }
 }
