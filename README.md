@@ -1,6 +1,6 @@
 # User Location
 
-Simple library to get a user's current location using the GeoIP service from GeoCarrot.
+Simple library to provide the current user's location, with an optional fallback method of obtaining their coordinates.
 
 ### Browser Compatibility
 
