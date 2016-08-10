@@ -1,26 +1,18 @@
 export default class UserLocation {
   constructor({
-    apiKey = null,
     cacheTtl = 604800, // 7 days
     fallback = 'exact', // If IP-based geolocation fails
     specificity = 'general',
-  }) {
+  } = {}) {
     this.coords = {
       latitude: null,
       longitude: null,
-      accuracy: null,
+      accuracy: null, // in meters
     };
-    this.opt = { apiKey, cacheTtl, fallback, specificity };
     let promise;
+    this.opt = { cacheTtl, fallback, specificity };
 
     console.log(this.opt);
-
-    if (
-      this.opt.apiKey === null &&
-      (this.opt.specificity === 'general' || this.opt.fallback === 'general')
-    ) {
-      throw new Error('An API key must be included when using GeoCarrot\'s GeoIP lookup.');
-    }
 
     if (specificity === 'exact') {
       promise = this.getExact();
@@ -53,19 +45,23 @@ export default class UserLocation {
 
   getGeneral() {
     const promise = new Promise((resolve, reject) => {
-      fetch(`https://geoip.maplasso.com/api/?key=${this.opt.apiKey}`, {})
+      fetch('https://geoip.nekudo.com/api/', {})
         .then((response) => {
           if (response.ok) {
-            response.json().then((json) => {
-              this.coords.latitude = json.data.attributes.location.latitude;
-              this.coords.longitude = json.data.attributes.location.longitude;
-              resolve(this.coords);
-            });
+            response.json()
+              .then((json) => {
+                // Convert Maxmind's accuracy in kilometers to this lib's standard in meters
+                this.coords.accuracy = json.location.accuracy_radius * 1000;
+                this.coords.latitude = json.location.latitude;
+                this.coords.longitude = json.location.longitude;
+                resolve(this.coords);
+              }
+            );
           } else {
             reject(`${response.statusText})`);
           }
-        },
-        (err) => {
+        })
+        .catch((err) => {
           reject(`${err.message}`);
         });
     });
