@@ -1,7 +1,7 @@
 export default class UserLocation {
   constructor({
     cacheTtl = 604800, // 7 days
-    fallback = 'exact', // If IP-based geolocation fails
+    fallback = false, // If 'specificity' fails
     specificity = 'general',
   } = {}) {
     this.coords = {
@@ -9,20 +9,31 @@ export default class UserLocation {
       longitude: null,
       accuracy: null, // in meters
     };
-    let promise;
     this.opt = { cacheTtl, fallback, specificity };
-
-    console.log(this.opt);
+    let fallbackPromise;
+    let originalPromise;
 
     if (specificity === 'exact') {
-      promise = this.getExact();
+      originalPromise = this.getExact();
     } else if (specificity === 'general') {
-      promise = this.getGeneral();
+      originalPromise = this.getGeneral();
     } else {
       throw new Error('Invalid configuration value for location specificity.');
     }
 
-    return promise;
+    return originalPromise
+      .then(() => originalPromise)
+      .catch(() => {
+        if (fallback === 'exact') {
+          fallbackPromise = this.getExact();
+        } else if (fallback === 'general') {
+          fallbackPromise = this.getGeneral();
+        } else {
+          fallbackPromise = originalPromise;
+        }
+
+        return fallbackPromise;
+      });
   }
 
   getExact() {
@@ -50,19 +61,23 @@ export default class UserLocation {
           if (response.ok) {
             response.json()
               .then((json) => {
-                // Convert Maxmind's accuracy in kilometers to this lib's standard in meters
-                this.coords.accuracy = json.location.accuracy_radius * 1000;
-                this.coords.latitude = json.location.latitude;
-                this.coords.longitude = json.location.longitude;
-                resolve(this.coords);
+                if (json.type === 'error') {
+                  reject(json.msg);
+                } else {
+                  // Convert Maxmind's accuracy in kilometers to this lib's standard in meters
+                  this.coords.accuracy = json.location.accuracy_radius * 1000;
+                  this.coords.latitude = json.location.latitude;
+                  this.coords.longitude = json.location.longitude;
+                  resolve(this.coords);
+                }
               }
             );
           } else {
-            reject(`${response.statusText})`);
+            reject(response.statusText);
           }
         })
         .catch((err) => {
-          reject(`${err.message}`);
+          reject(err.message);
         });
     });
 
