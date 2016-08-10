@@ -1,3 +1,18 @@
+/**
+ * Simple library to provide the current user's location, with
+ * an optional fallback method of obtaining their coordinates.
+ *
+ * @class UserLocation
+ *
+ * @param {Object} opt - Optional configuration
+ * @param {number} [opt.cacheTtl=604800] - Cache time-to-live in seconds
+ * @param {boolean|string} [opt.fallback=false] - Method of obtaining coordinates if initial try
+ * fails. Possible values: false, 'general', or 'exact'.
+ * @param {string} [opt.specificity='general'] - Initial method of obtaining coordinates. Possible
+ * values: 'general' or 'exact'.
+ * @returns {Promise} - When resolved, returns a coordinates object
+ * with latitude, longitude, and accuracy.
+ */
 export default class UserLocation {
   constructor({
     cacheTtl = 604800, // 7 days
@@ -9,7 +24,9 @@ export default class UserLocation {
       longitude: null,
       accuracy: null, // in meters
     };
+
     this.opt = { cacheTtl, fallback, specificity };
+
     let fallbackPromise;
     let originalPromise;
 
@@ -36,6 +53,11 @@ export default class UserLocation {
       });
   }
 
+  /**
+   * Get location using browser's native geolocation API.
+   *
+   * @return {Promise} - navigator.geolocation wrapped in a Promise
+   */
   getExact() {
     const promise = new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
@@ -54,6 +76,11 @@ export default class UserLocation {
     return promise;
   }
 
+  /**
+   * Get location using Nekudo's IP address lookup service
+   *
+   * @return {Promise} - Promise wrapped around Fetch response
+   */
   getGeneral() {
     const promise = new Promise((resolve, reject) => {
       fetch('https://geoip.nekudo.com/api/', {})

@@ -5,6 +5,7 @@
   },
   "extends": "airbnb",
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn",
+    "valid-jsdoc": "warn"
   }
 }
