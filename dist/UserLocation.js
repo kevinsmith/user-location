@@ -2,7 +2,7 @@
  * UserLocation v0.0.1
  * Simple library to provide the current user's location, with an optional fallback method of obtaining their coordinates.
  * 
- * https://developers.geocarrot.com
+ * https://developers.kevinsmith.io
  * 
  * Licensed under Apache-2.0
  * 

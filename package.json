@@ -11,11 +11,11 @@
     "email": "kevin@hearsayinteractive.com",
     "url": "https://kevinsmith.io/"
   },
-  "homepage": "https://developers.geocarrot.com",
+  "homepage": "https://developers.kevinsmith.io",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kevinsmith/geocarrot-user-location.git"
+    "url": "https://github.com/kevinsmith/user-location.git"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
