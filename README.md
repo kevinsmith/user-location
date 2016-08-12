@@ -4,11 +4,11 @@ Simple library to provide the current user's location, with an optional fallback
 
 ### Browser Compatibility
 
-- Chrome 5.0+
-- Firefox 25+
-- Internet Explorer 9+
-- Opera 16+
-- Safari 5+
+- Chrome 42.0+
+- Firefox 39+
+- Internet Explorer 10+
+- Opera 29+
+- Safari 6.1+
 
 ## Code Example
 
