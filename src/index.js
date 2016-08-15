@@ -12,7 +12,7 @@ import Cookies from 'js-cookie';
  * fails. Possible values: false, 'general', or 'exact'.
  * @param {string} [opt.specificity='general'] - Initial method of obtaining coordinates. Possible
  * values: 'general' or 'exact'.
- * @returns {Promise} - When resolved, returns a coordinates object
+ * @return {Promise} - When resolved, returns a coordinates object
  * with latitude, longitude, and accuracy.
  */
 export default class UserLocation {
