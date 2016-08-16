@@ -1,5 +1,5 @@
 /*!
- * UserLocation v0.0.1
+ * UserLocation v1.0.0
  * Simple library to get the current user's location, with an optional fallback method of obtaining their coordinates.
  * 
  * https://developers.kevinsmith.io
