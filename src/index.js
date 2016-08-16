@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 
 /**
- * Simple library to provide the current user's location, with
- * an optional fallback method of obtaining their coordinates.
+ * Simple library to get the current user's location, with an
+ * optional fallback method of obtaining their coordinates.
  *
  * @class UserLocation
  *
