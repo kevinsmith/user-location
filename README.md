@@ -20,6 +20,8 @@ UserLocation requires support for ES2015 Promises and the Fetch API. I recommend
 - Opera 29+
 - Safari 6.1+
 
+**Note:** For front-end use only. Not compatible with a Node.js server-side environment.
+
 ## Quick Example
 
 Since location lookup isn't an instant operation, UserLocation uses a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) to deliver coordinates as soon as they're available.
