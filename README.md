@@ -1,4 +1,4 @@
-# User Location
+# UserLocation
 
 A simple library to get the current user's location, with an optional fallback method of obtaining their coordinates.
 
@@ -88,7 +88,7 @@ var location = new UserLocation({
 |-------------|----------------|---------|------------------------------------------------------------------------------------------------------|
 | cacheTtl | number | 604800 | Cache time-to-live in seconds. (Default is 7 days.) |
 | fallback | boolean/string | false | Method of obtaining coordinates if initial try fails. Possible values: false, 'general', or 'exact'. |
-| specificity | string | general | Initial method of obtaining coordinates. Possible values: 'general' or 'exact'. |                    |
+| specificity | string | 'general' | Initial method of obtaining coordinates. Possible values: 'general' or 'exact'. |                    |
 
 ### Return
 
