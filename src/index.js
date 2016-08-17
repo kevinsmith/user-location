@@ -31,6 +31,8 @@ export default class UserLocation {
 
     this.opt = { cacheTtl, fallback, specificity };
 
+    this.preflightChecks();
+
     const cachedCoords = this.getCache();
     let fallbackPromise;
     let originalPromise;
@@ -67,6 +69,27 @@ export default class UserLocation {
 
         return fallbackPromise;
       });
+  }
+
+  /**
+   * Ensure all required environment APIs are available.
+   *
+   * @return {void}
+   */
+  preflightChecks() {
+    if (typeof navigator === 'undefined' || !('geolocation' in navigator)) {
+      throw new Error('The geolocation API is required but unavailable in this environment.');
+    }
+
+    if (typeof Promise === 'undefined') {
+      throw new Error('The Promise object is required but unavailable in this environment. ' +
+        'Please consider using a Promise polyfill to support all modern browsers.');
+    }
+
+    if (typeof fetch === 'undefined') {
+      throw new Error('The Fetch API is required but unavailable in this environment. ' +
+        'Please consider using a fetch polyfill to support all modern browsers.');
+    }
   }
 
   /**
