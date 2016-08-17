@@ -1,6 +1,6 @@
 {
   "name": "user-location",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Simple library to get the current user's location, with an optional fallback method of obtaining their coordinates.",
   "main": "dist/UserLocation.min.js",
   "scripts": {
